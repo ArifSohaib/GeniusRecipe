@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 class RecipeSerializer(serializers.HyperlinkedModelSerializer):
     writer = serializers.ReadOnlyField(source='writer.username')
+    ingredients = serializers.PrimaryKeyRelatedField(many=True, queryset=Ingredient.objects.all())
+    steps = serializers.PrimaryKeyRelatedField(many=True, queryset=Ingredient.objects.all())
     class Meta:
         model = Recipe
         fields = ('id','name', 'writer', 'ingridents', 'steps')
